@@ -22,6 +22,19 @@ uv sync
 uv add <package-name>
 ```
 
+### Code Quality
+```bash
+# Format code with black
+./scripts/format.sh
+
+# Check code formatting
+./scripts/check.sh
+
+# Manual formatting commands
+uv run black backend/ main.py          # Format all Python files
+uv run black backend/ main.py --check  # Check formatting without changes
+```
+
 ### Environment Setup
 Create `.env` file in root with:
 ```
