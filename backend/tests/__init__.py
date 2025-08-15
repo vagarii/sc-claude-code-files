@@ -1,1 +1,1 @@
-# Test package for RAG system
+"""Tests package for the RAG system."""
