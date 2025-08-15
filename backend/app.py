@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Union, Dict, Any
 import os
 
 from config import config
@@ -45,7 +45,7 @@ class QueryResponse(BaseModel):
     """Response model for course queries"""
 
     answer: str
-    sources: List[str]
+    sources: List[Union[str, Dict[str, Any]]]  # Support both string and structured sources
     session_id: str
 
 
@@ -73,6 +73,9 @@ async def query_documents(request: QueryRequest):
 
         return QueryResponse(answer=answer, sources=sources, session_id=session_id)
     except Exception as e:
+        print(f"Error in query endpoint: {e}")
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 
